@@ -1,7 +1,12 @@
-export default function App() {
+import Navbar from "./components/Navbar";
+
+function App() {
   return (
-    <div className="bg-pink-500 text-white p-6 rounded-lg shadow-lg text-center">
-      Tailwind CSS berhasil! 🎉
+    <div>
+      <Navbar />
+      {/* Rest of your content */}
     </div>
   );
 }
+
+export default App;
