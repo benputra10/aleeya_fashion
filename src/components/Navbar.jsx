@@ -1,69 +1,133 @@
 import { useState } from "react";
 
 const Navbar = () => {
-  const [menuOpen, setMenuOpen] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
-    <nav className="bg-white shadow-md py-4 px-6">
-      <div className="max-w-6xl mx-auto flex justify-between items-center">
-        {/* Logo/Brand */}
-        <div className="flex items-center">
-          <img
-            src="https://via.placeholder.com/50x50"
-            alt="Aleeya Fashion Logo"
-            className="mr-3 rounded-full"
-          />
-          <span className="text-xl font-bold text-blue-900">
-            Aleeya Fashion
-          </span>
-        </div>
+    <nav className="bg-white sticky top-0 z-50 shadow-sm">
+      {/* Container */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex justify-between h-20 items-center">
+          {/* Logo & Menu Desktop */}
+          <div className="flex items-center">
+            {/* Logo */}
+            <div className="flex-shrink-0 flex items-center">
+              <img
+                className="h-10 w-10 rounded-full"
+                src="https://images.unsplash.com/photo-1635031401080-b6f0f5e9c177?w=200&auto=format&fit=crop"
+                alt="Aleeya Fashion Logo"
+              />
+              <span className="ml-3 text-2xl font-bold text-gray-900 font-poppins">
+                Aleeya Fashion
+              </span>
+            </div>
 
-        {/* Desktop Menu */}
-        <div className="hidden md:flex space-x-8">
-          <a href="#" className="text-blue-900 hover:text-pink-300">
-            Beranda
-          </a>
-          <a href="#" className="text-blue-900 hover:text-pink-300">
-            Koleksi
-          </a>
-          <a href="#" className="text-blue-900 hover:text-pink-300">
-            Tentang
-          </a>
-          <a href="#" className="text-blue-900 hover:text-pink-300">
-            Testimoni
-          </a>
-          <button className="bg-pink-200 text-blue-900 px-4 py-2 rounded-full hover:bg-pink-300">
-            Belanja Sekarang
-          </button>
-        </div>
+            {/* Menu Desktop */}
+            <div className="hidden md:ml-10 md:flex md:space-x-8">
+              <a
+                href="#"
+                className="text-gray-900 hover:text-pink-500 px-3 py-2 font-medium"
+              >
+                Beranda
+              </a>
+              <a
+                href="#"
+                className="text-gray-900 hover:text-pink-500 px-3 py-2 font-medium"
+              >
+                Koleksi
+              </a>
+              <a
+                href="#"
+                className="text-gray-900 hover:text-pink-500 px-3 py-2 font-medium"
+              >
+                Tentang Kami
+              </a>
+              <a
+                href="#"
+                className="text-gray-900 hover:text-pink-500 px-3 py-2 font-medium"
+              >
+                Testimoni
+              </a>
+            </div>
+          </div>
 
-        {/* Mobile Menu Button */}
-        <button
-          className="md:hidden text-blue-900"
-          onClick={() => setMenuOpen(!menuOpen)}
-        >
-          ☰
-        </button>
+          {/* Tombol CTA & Mobile Menu Button */}
+          <div className="flex items-center">
+            <button className="hidden md:inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-full shadow-sm text-white bg-pink-500 hover:bg-pink-600">
+              Belanja Sekarang
+            </button>
+
+            {/* Mobile menu button */}
+            <button
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              className="md:hidden inline-flex items-center justify-center p-2 rounded-md text-gray-900 hover:text-pink-500"
+            >
+              {isMenuOpen ? (
+                <svg
+                  className="h-6 w-6"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M6 18L18 6M6 6l12 12"
+                  />
+                </svg>
+              ) : (
+                <svg
+                  className="h-6 w-6"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M4 6h16M4 12h16M4 18h16"
+                  />
+                </svg>
+              )}
+            </button>
+          </div>
+        </div>
       </div>
 
       {/* Mobile Menu */}
-      {menuOpen && (
-        <div className="md:hidden bg-white py-4 px-6 space-y-4">
-          <a href="#" className="block text-blue-900 hover:text-pink-300">
-            Beranda
-          </a>
-          <a href="#" className="block text-blue-900 hover:text-pink-300">
-            Koleksi
-          </a>
-          <a href="#" className="block text-blue-900 hover:text-pink-300">
-            Tentang
-          </a>
-          <a href="#" className="block text-blue-900 hover:text-pink-300">
-            Testimoni
-          </a>
-          <button className="bg-pink-200 text-blue-900 px-4 py-2 rounded-full hover:bg-pink-300 w-full">
-            Belanja Sekarang
-          </button>
+      {isMenuOpen && (
+        <div className="md:hidden bg-white pb-4 px-4 shadow-lg">
+          <div className="pt-2 space-y-1">
+            <a
+              href="#"
+              className="block px-3 py-2 text-base font-medium text-gray-900 hover:text-pink-500"
+            >
+              Beranda
+            </a>
+            <a
+              href="#"
+              className="block px-3 py-2 text-base font-medium text-gray-900 hover:text-pink-500"
+            >
+              Koleksi
+            </a>
+            <a
+              href="#"
+              className="block px-3 py-2 text-base font-medium text-gray-900 hover:text-pink-500"
+            >
+              Tentang Kami
+            </a>
+            <a
+              href="#"
+              className="block px-3 py-2 text-base font-medium text-gray-900 hover:text-pink-500"
+            >
+              Testimoni
+            </a>
+            <button className="w-full mt-4 inline-flex justify-center items-center px-6 py-3 border border-transparent text-base font-medium rounded-full shadow-sm text-white bg-pink-500 hover:bg-pink-600">
+              Belanja Sekarang
+            </button>
+          </div>
         </div>
       )}
     </nav>
