@@ -1,10 +1,11 @@
-// src/components/ProductCard.jsx
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { useCart } from "../context/CartContext";
 import { products } from "../data/products";
 
 const ProductCard = () => {
-  const { addToCart, setIsCartOpen } = useCart();
+  const navigate = useNavigate();
+  const { addToCart } = useCart();
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [activeCategory, setActiveCategory] = useState("all");
   const [searchQuery, setSearchQuery] = useState("");
@@ -12,7 +13,7 @@ const ProductCard = () => {
   const [isAdding, setIsAdding] = useState({});
   const [quantities, setQuantities] = useState({});
 
-  // Inisialisasi quantity untuk setiap produk
+  // Initialize quantities
   useEffect(() => {
     const initialQuantities = {};
     products.forEach((product) => {
@@ -21,16 +22,14 @@ const ProductCard = () => {
     setQuantities(initialQuantities);
   }, []);
 
-  // Filter produk berdasarkan kategori dan pencarian
+  // Filter products
   useEffect(() => {
     let result = products;
 
-    // Filter kategori
     if (activeCategory !== "all") {
       result = result.filter((p) => p.category === activeCategory);
     }
 
-    // Filter pencarian
     if (searchQuery.trim()) {
       const query = searchQuery.toLowerCase();
       result = result.filter(
@@ -61,7 +60,6 @@ const ProductCard = () => {
 
     try {
       await addToCart(product, quantity);
-      setIsCartOpen(true);
     } catch (error) {
       console.error("Failed to add to cart:", error);
     } finally {
@@ -71,7 +69,17 @@ const ProductCard = () => {
     }
   };
 
-  // Kategori yang tersedia
+  // Handle load more - redirect to products page
+  const handleLoadMore = () => {
+    navigate("/products", {
+      state: {
+        category: activeCategory,
+        search: searchQuery,
+      },
+    });
+  };
+
+  // Available categories
   const categories = [
     { id: "all", name: "All Products" },
     { id: "new", name: "New Arrivals" },
@@ -80,7 +88,7 @@ const ProductCard = () => {
     { id: "sale", name: "Flash Sale" },
   ];
 
-  // Hitung total produk yang tersedia berdasarkan filter
+  // Calculate total available products
   const totalFilteredProducts = products.filter((p) =>
     activeCategory === "all" ? true : p.category === activeCategory
   ).length;
@@ -295,7 +303,7 @@ const ProductCard = () => {
           {filteredProducts.length < totalFilteredProducts && (
             <div className="text-center mt-8">
               <button
-                onClick={() => setDisplayCount((prev) => prev + 8)}
+                onClick={handleLoadMore}
                 className="px-6 py-2 bg-white border-2 border-pink-500 text-pink-500 rounded-full hover:bg-pink-50 transition-colors font-medium"
               >
                 Load More Products
