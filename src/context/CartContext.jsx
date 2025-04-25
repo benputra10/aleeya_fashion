@@ -1,24 +1,32 @@
+// src/context/CartContext.jsx
 import { createContext, useState, useContext } from "react";
 
 const CartContext = createContext();
 
 export const CartProvider = ({ children }) => {
   const [cartItems, setCartItems] = useState([]);
+  const [isCartOpen, setIsCartOpen] = useState(false);
 
-  // Tambah produk ke keranjang
-  const addToCart = (product) => {
+  // Tambah produk ke keranjang dengan quantity
+  const addToCart = (product, quantity = 1) => {
     setCartItems((prevItems) => {
       const existingItem = prevItems.find((item) => item.id === product.id);
 
       if (existingItem) {
         return prevItems.map((item) =>
           item.id === product.id
-            ? { ...item, quantity: item.quantity + 1 }
+            ? { ...item, quantity: item.quantity + quantity }
             : item
         );
       }
 
-      return [...prevItems, { ...product, quantity: 1 }];
+      return [
+        ...prevItems,
+        {
+          ...product,
+          quantity: quantity,
+        },
+      ];
     });
   };
 
@@ -46,6 +54,9 @@ export const CartProvider = ({ children }) => {
     0
   );
 
+  // Jumlah total item di cart
+  const itemCount = cartItems.reduce((sum, item) => sum + item.quantity, 0);
+
   return (
     <CartContext.Provider
       value={{
@@ -54,6 +65,9 @@ export const CartProvider = ({ children }) => {
         removeFromCart,
         updateQuantity,
         total,
+        itemCount,
+        isCartOpen,
+        setIsCartOpen,
       }}
     >
       {children}

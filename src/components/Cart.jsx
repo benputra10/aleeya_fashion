@@ -1,45 +1,16 @@
-import { useState } from "react";
+// src/components/Cart.jsx
+import { useCart } from "../context/CartContext";
 
 const Cart = () => {
-  const [cartItems, setCartItems] = useState([
-    {
-      id: 1,
-      name: "Gamis Anak Aisyah",
-      price: 120000,
-      quantity: 1,
-      image: "/images/gamis-1.jpg",
-    },
-    {
-      id: 2,
-      name: "Gamis Anak Zahra",
-      price: 150000,
-      quantity: 1,
-      image: "/images/gamis-2.jpg",
-    },
-  ]);
-
-  const [isCartOpen, setIsCartOpen] = useState(false);
-
-  // Update quantity
-  const updateQuantity = (id, newQuantity) => {
-    if (newQuantity < 1) return;
-    setCartItems(
-      cartItems.map((item) =>
-        item.id === id ? { ...item, quantity: newQuantity } : item
-      )
-    );
-  };
-
-  // Remove item
-  const removeItem = (id) => {
-    setCartItems(cartItems.filter((item) => item.id !== id));
-  };
-
-  // Calculate total
-  const total = cartItems.reduce(
-    (sum, item) => sum + item.price * item.quantity,
-    0
-  );
+  const {
+    cartItems,
+    removeFromCart,
+    updateQuantity,
+    total,
+    itemCount,
+    isCartOpen,
+    setIsCartOpen,
+  } = useCart();
 
   // Format WhatsApp message
   const formatWhatsAppMessage = () => {
@@ -48,7 +19,9 @@ const Cart = () => {
         (item) =>
           `- ${item.name} (${
             item.quantity
-          }x) : Rp${item.price.toLocaleString()}`
+          }x) : Rp${item.price.toLocaleString()} = Rp${(
+            item.price * item.quantity
+          ).toLocaleString()}`
       )
       .join("%0A");
 
@@ -69,7 +42,7 @@ const Cart = () => {
       {/* Cart Button */}
       <button
         onClick={() => setIsCartOpen(!isCartOpen)}
-        className="bg-pink-500 hover:bg-pink-600 text-white p-4 rounded-full shadow-lg flex items-center"
+        className="bg-pink-500 hover:bg-pink-600 text-white p-4 rounded-full shadow-lg flex items-center transition-all duration-300 transform hover:scale-105"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -86,24 +59,47 @@ const Cart = () => {
           />
         </svg>
         <span className="ml-1 bg-white text-pink-500 rounded-full w-6 h-6 flex items-center justify-center text-sm font-bold">
-          {cartItems.reduce((total, item) => total + item.quantity, 0)}
+          {itemCount}
         </span>
       </button>
 
       {/* Cart Dropdown */}
       {isCartOpen && (
-        <div className="absolute bottom-16 right-0 w-80 bg-white rounded-lg shadow-xl p-4">
-          <h3 className="text-lg font-bold mb-4">Keranjang Belanja</h3>
+        <div className="absolute bottom-16 right-0 w-80 bg-white rounded-lg shadow-xl p-4 border border-gray-200">
+          <div className="flex justify-between items-center mb-4">
+            <h3 className="text-lg font-bold">
+              Keranjang Belanja ({itemCount})
+            </h3>
+            <button
+              onClick={() => setIsCartOpen(false)}
+              className="text-gray-500 hover:text-gray-700"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-5 w-5"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              </svg>
+            </button>
+          </div>
 
           {cartItems.length === 0 ? (
-            <p className="text-gray-500">Keranjang kosong</p>
+            <p className="text-gray-500 text-center py-4">Keranjang kosong</p>
           ) : (
             <>
               <div className="max-h-64 overflow-y-auto mb-4">
                 {cartItems.map((item) => (
                   <div
                     key={item.id}
-                    className="flex items-center py-3 border-b"
+                    className="flex items-center py-3 border-b border-gray-100"
                   >
                     <img
                       src={item.image}
@@ -111,8 +107,8 @@ const Cart = () => {
                       className="w-16 h-16 object-cover rounded mr-3"
                     />
                     <div className="flex-1">
-                      <h4 className="font-medium">{item.name}</h4>
-                      <p className="text-pink-500">
+                      <h4 className="font-medium text-sm">{item.name}</h4>
+                      <p className="text-pink-500 text-sm">
                         Rp{item.price.toLocaleString()}
                       </p>
                     </div>
@@ -121,26 +117,28 @@ const Cart = () => {
                         onClick={() =>
                           updateQuantity(item.id, item.quantity - 1)
                         }
-                        className="px-2 text-gray-500"
+                        className="px-2 text-gray-500 hover:bg-gray-100 rounded"
                       >
                         -
                       </button>
-                      <span className="mx-2">{item.quantity}</span>
+                      <span className="mx-1 text-sm w-6 text-center">
+                        {item.quantity}
+                      </span>
                       <button
                         onClick={() =>
                           updateQuantity(item.id, item.quantity + 1)
                         }
-                        className="px-2 text-gray-500"
+                        className="px-2 text-gray-500 hover:bg-gray-100 rounded"
                       >
                         +
                       </button>
                       <button
-                        onClick={() => removeItem(item.id)}
-                        className="ml-3 text-red-500"
+                        onClick={() => removeFromCart(item.id)}
+                        className="ml-2 text-red-500 hover:text-red-700"
                       >
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
-                          className="h-5 w-5"
+                          className="h-4 w-4"
                           fill="none"
                           viewBox="0 0 24 24"
                           stroke="currentColor"
@@ -158,14 +156,14 @@ const Cart = () => {
                 ))}
               </div>
 
-              <div className="border-t pt-4">
+              <div className="border-t border-gray-200 pt-4">
                 <div className="flex justify-between font-bold mb-4">
                   <span>Total:</span>
                   <span>Rp{total.toLocaleString()}</span>
                 </div>
                 <button
                   onClick={sendViaWhatsApp}
-                  className="w-full bg-green-500 hover:bg-green-600 text-white py-2 rounded flex items-center justify-center"
+                  className="w-full bg-green-500 hover:bg-green-600 text-white py-2 rounded flex items-center justify-center transition-colors"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"

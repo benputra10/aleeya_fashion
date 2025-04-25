@@ -13,7 +13,7 @@ function App() {
         <Navbar />
         <Hero />
         <Features />
-        <ProductCollection />
+        <ProductCard />
         <Cart />
       </div>
     </CartProvider>
