@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useCart } from "../context/CartContext";
-import { products } from "../data/products";
+import { products } from "../data/Products";
 
 const ProductCard = () => {
   const navigate = useNavigate();

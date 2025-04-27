@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useCart } from "../context/CartContext";
-import { products } from "../data/products";
+import { products } from "../data/Products";
 
 const ProductsPage = () => {
   const location = useLocation();

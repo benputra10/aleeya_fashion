@@ -6,6 +6,8 @@ import Cart from "./components/Cart";
 import ProductCard from "./components/ProductCard";
 import ProductsPage from "./pages/ProductsPage";
 import { CartProvider } from "./context/CartContext";
+import TestimonialCarousel from "./components/TestimonialCarousel";
+import Footer from "./components/Footer";
 
 function App() {
   return (
@@ -21,6 +23,8 @@ function App() {
                   <Hero />
                   <Features />
                   <ProductCard />
+                  <TestimonialCarousel />
+                  <Footer />
                 </>
               }
             />
