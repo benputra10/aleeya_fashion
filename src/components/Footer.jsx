@@ -52,7 +52,7 @@ const Footer = () => {
               <li>
                 <Link
                   to="/"
-                  className="text-gray-500 hover:text-pink-300 transition"
+                  className="text-navy-500 hover:text-pink-300 transition"
                 >
                   Beranda
                 </Link>
@@ -166,34 +166,7 @@ const Footer = () => {
         </div>
 
         {/* Payment & Trust Badges */}
-        <div className="flex flex-col items-center border-t border-gray-700 pt-8">
-          <h4 className="text-sm text-navy-400 mb-4">Metode Pembayaran:</h4>
-          <div className="flex space-x-4 mb-6">
-            <img src="/payment-bca.png" alt="BCA" className="h-8" />
-            <img src="/payment-mandiri.png" alt="Mandiri" className="h-8" />
-            <img src="/payment-bri.png" alt="BRI" className="h-8" />
-            <img src="/payment-gopay.png" alt="Gopay" className="h-8" />
-            <img src="/payment-shopeepay.png" alt="ShopeePay" className="h-8" />
-          </div>
-
-          <div className="flex space-x-6">
-            <img
-              src="/trust-badge-1.png"
-              alt="Halal Certified"
-              className="h-10"
-            />
-            <img
-              src="/trust-badge-2.png"
-              alt="100% Original"
-              className="h-10"
-            />
-            <img
-              src="/trust-badge-3.png"
-              alt="Free Shipping"
-              className="h-10"
-            />
-          </div>
-        </div>
+        <div className="flex flex-col items-center border-t border-gray-700 pt-8"></div>
 
         {/* Copyright */}
         <div className="text-center text-navy-400 text-sm mt-8">

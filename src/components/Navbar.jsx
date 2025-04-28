@@ -1,5 +1,5 @@
 import { useState } from "react";
-
+import { Link } from "react-router-dom";
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
@@ -24,24 +24,18 @@ const Navbar = () => {
 
             {/* Menu Desktop */}
             <div className="hidden md:ml-10 md:flex md:space-x-8">
-              <a
-                href="#"
+              <Link
+                to="/"
                 className="text-gray-900 hover:text-pink-500 px-3 py-2 font-medium"
               >
                 Beranda
-              </a>
-              <a
-                href="#"
+              </Link>
+              <Link
+                to="/products"
                 className="text-gray-900 hover:text-pink-500 px-3 py-2 font-medium"
               >
                 Koleksi
-              </a>
-              <a
-                href="#"
-                className="text-gray-900 hover:text-pink-500 px-3 py-2 font-medium"
-              >
-                Tentang Kami
-              </a>
+              </Link>
               <a
                 href="#"
                 className="text-gray-900 hover:text-pink-500 px-3 py-2 font-medium"
@@ -53,10 +47,14 @@ const Navbar = () => {
 
           {/* Tombol CTA & Mobile Menu Button */}
           <div className="flex items-center">
-            <button className="hidden md:inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-full shadow-sm text-white bg-pink-500 hover:bg-pink-600">
-              Belanja Sekarang
-            </button>
-
+            <div className="flex items-center">
+              <Link
+                to="/products"
+                className="hidden md:inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-full shadow-sm text-white bg-pink-500 hover:bg-pink-600 transition-colors"
+              >
+                Belanja Sekarang
+              </Link>
+            </div>
             {/* Mobile menu button */}
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
