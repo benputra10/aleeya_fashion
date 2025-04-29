@@ -67,22 +67,6 @@ const Footer = () => {
               </li>
               <li>
                 <Link
-                  to="/about"
-                  className="text-navy-1000 hover:text-pink-300 transition"
-                >
-                  Tentang Kami
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/blog"
-                  className="text-navy-200 hover:text-pink-300 transition"
-                >
-                  Blog
-                </Link>
-              </li>
-              <li>
-                <Link
                   to="/contact"
                   className="text-navy-200 hover:text-pink-300 transition"
                 >
@@ -116,14 +100,6 @@ const Footer = () => {
               </li>
               <li>
                 <Link
-                  to="/shipping"
-                  className="text-navy-200 hover:text-pink-300 transition"
-                >
-                  Pengiriman
-                </Link>
-              </li>
-              <li>
-                <Link
                   to="/returns"
                   className="text-navy-200 hover:text-pink-300 transition"
                 >
@@ -150,7 +126,7 @@ const Footer = () => {
               <li className="flex items-start">
                 <FaMapMarkerAlt className="text-pink-300 mt-1 mr-3 flex-shrink-0" />
                 <span className="text-navy-300">
-                  Jl. Merdeka No. 123, Bandung, Jawa Barat
+                  Jl. Bojong No. 123, Bandung, Jawa Barat
                 </span>
               </li>
               <li className="flex items-center">

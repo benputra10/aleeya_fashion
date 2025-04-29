@@ -32,7 +32,7 @@ const Cart = () => {
 
   // Open WhatsApp
   const sendViaWhatsApp = () => {
-    const phoneNumber = "6281234567890"; // Ganti dengan nomor Anda
+    const phoneNumber = "6285765369118"; // ------------nomor teleponn
     const message = formatWhatsAppMessage();
     window.open(`https://wa.me/${phoneNumber}?text=${message}`, "_blank");
   };
